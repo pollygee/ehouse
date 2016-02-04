@@ -1,27 +1,43 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Appointments</h1>
-
 <table>
   <thead>
     <tr>
-      <th>Client</th>
+      <th>Client First Name</th>
+      <th>Client Last Name</th>
       <th>Date</th>
       <th>Showed</th>
-      <th colspan="3"></th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @appointments.each do |appointment| %>
-      <tr>
-        <td><%= appointment.client_id %></td>
+      <%= form_for(appointment) do |f| %>
+        <div class="field">
+          <%= f.label :date %> <br />
+          <%= f.datetime_field :date %> <br />
+          <%= f.label :showed %> 
+          <%= f.check_box :showed, {}, true, false %> <br />
+          <div class="actions">
+            <%= f.submit "Submit", class: "button small radius" %>
+            <%= link_to "go back", @user, class: "button small radius secondary" %>
+          </div>
+        </div>
+        <%= link_to 'Show', appointment %> 
+        <%= link_to 'Edit', edit_appointment_path(appointment) %> 
+        <%= link_to 'Destroy', appointment, method: :delete, data: { confirm: 'Are you sure?' } %> 
+      <% end %>
+      <!-- <tr>
+        <td><%= appointment.client.first_name %></td>
+        <td><%= appointment.client.last_name %></td>
         <td><%= appointment.date %></td>
         <td><%= appointment.showed %></td>
         <td><%= link_to 'Show', appointment %></td>
         <td><%= link_to 'Edit', edit_appointment_path(appointment) %></td>
         <td><%= link_to 'Destroy', appointment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      </tr> -->
     <% end %>
   </tbody>
 </table>
